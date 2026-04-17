@@ -6,6 +6,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
-    "express-gateway": "^1.16.11"
+    "axios": "1.15.0",
+    "express-gateway": "^1.16.11",
+    "form-data": "^4.0.4"
   }
 }
