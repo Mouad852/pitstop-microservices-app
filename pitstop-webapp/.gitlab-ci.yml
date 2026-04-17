@@ -1,0 +1,40 @@
+stages:
+  - test
+  - build
+  - scanning
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
+test:
+  stage: test
+  image: node:20-alpine
+  script:
+    - npm install --force
+    - npm test
+  only:
+    - main
+    - develop
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - echo "$DOCKERHUB_ACCESS_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+  script:
+    - docker build -t mouadchaouni/pitstop:pitstop-webapp .
+    - docker push mouadchaouni/pitstop:pitstop-webapp
+  only:
+    - main
+    - develop
+
+container_scanning:
+  stage: scanning
+  variables:
+    CS_IMAGE: mouadchaouni/pitstop:pitstop-webapp
+  needs:
+    - build

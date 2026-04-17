@@ -1,4 +1,4 @@
-FROM node:20.13-alpine AS builder
+FROM node:20.20.0-alpine AS builder
 WORKDIR /app
 
 RUN apk update && apk upgrade && \
@@ -14,7 +14,7 @@ COPY . .
 
 RUN adduser -D appuser && chown -R appuser:appuser /app
 
-FROM node:20.13-alpine
+FROM node:20.20.0-alpine
 
 ENV NODE_ENV=production
 WORKDIR /app

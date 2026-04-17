@@ -5,13 +5,10 @@ admin:
   host: localhost
 apiEndpoints:
   pitstop-customer:
-    host: localhost
     paths: '/api/customers/*'
   pitstop-vehicle:
-    host: localhost
     paths: '/api/vehicles/*'
   pitstop-workshop:
-    host: localhost
     paths: '/api/workshop/*'
 serviceEndpoints:
   pitstop-customer-service:
