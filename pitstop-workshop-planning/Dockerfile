@@ -1,4 +1,4 @@
-FROM node:20.13-alpine as builder
+FROM node:20.20.2-alpine AS builder
 WORKDIR /app
 
 RUN apk update && apk upgrade && \
@@ -6,15 +6,13 @@ RUN apk update && apk upgrade && \
 
 COPY package*.json ./
 
-RUN npm install --production && npm update
-
 RUN npm ci --only=production
 
 COPY . .
 
 RUN adduser -D appuser && chown -R appuser:appuser /app
 
-FROM node:20.13-alpine
+FROM node:20.20.2-alpine
 
 ENV NODE_ENV=production
 WORKDIR /app
