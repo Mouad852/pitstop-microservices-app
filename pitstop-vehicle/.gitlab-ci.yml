@@ -26,14 +26,14 @@ build:
   before_script:
     - echo "$DOCKERHUB_ACCESS_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
   script:
-    - docker build -t mouadchaouni/pitstop:pitstop-webapp .
-    - docker push mouadchaouni/pitstop:pitstop-webapp
+    - docker build -t mouadchaouni/pitstop:pitstop-vehicle-service .
+    - docker push mouadchaouni/pitstop:pitstop-vehicle-service
   only:
     - main
 
 container_scanning:
   stage: scanning
   variables:
-    CS_IMAGE: mouadchaouni/pitstop:pitstop-webapp
+    CS_IMAGE: mouadchaouni/pitstop:pitstop-vehicle-service
   needs:
     - build
